@@ -1,106 +1,345 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Plantilla basica para usar con Django">
-    <meta name="author" content="JCristobal">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="description" content="Plantilla simple para usar con Django">
+	<meta name="author" content="JCristobal">
+	<title>Restaurantes | Alcalá la Real </title>
 
-    <title>Fixed Top Navbar Example for Bootstrap</title>
+	{% load staticfiles %}
+	<!-- CSS -->
+	<link href="{% static 'css/foundation.css' %}" rel="stylesheet"> 
+	<link href="{% static 'css/restaurantes.css' %}" rel="stylesheet"> 
 
-    {% load staticfiles %}
+</head>
+<body>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+<div class="top-bar">
+<div class="top-bar-left">
+<ul class="menu">
+<li class="menu-text">Gestión de restaurantes</li>
+<!-- <li><a href="#">One</a></li>
+<li><a href="#">Two</a></li> -->
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="{% static 'css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="{% static 'css/navbar-fixed-top.css' %}" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
+	<div class="reveal" id="modal_entrar" data-animation-in="scale-in-up"  data-animation-out="scale-out-down" data-reveal style="position: absolute;top:50%;left:50%; margin-left: -300px;"> <!--Se carga en linea para sobreescribir los estilos propios de Foundation -->
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
+<div class="row">
 
-  <body>
+  <div class="medium-6 medium-centered large-12 large-centered columns">
+    <form>
+      <div class="row column log-in-form">
 
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://getbootstrap.com/examples/navbar/">Default</a></li>
-            <li><a href="http://getbootstrap.com/examples/navbar-static-top/">Static top</a></li>
-            <li class="active"><a href="http://getbootstrap.com/examples/navbar-fixed-top/">Fixed top <span class="sr-only">(current)</span></a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-
-    <div class="container">
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>Navbar example</h1>
-        <p>This example is a quick exercise to illustrate how the 
-default, static and fixed to top navbar work. It includes the responsive
- CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>To see the difference between static and fixed top navbars, just scroll.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="http://getbootstrap.com/components/#navbar" role="button">View navbar docs »</a>
-        </p>
+        <h4 class="text-center">Log in with you email account</h4>
+        <label>Email
+          <input type="text" placeholder="somebody@example.com">
+        </label>
+        <label>Password
+          <input type="password" placeholder="Password">
+        </label>
+        <input id="show-password" type="checkbox"><label for="show-password">Show password</label>
+        <p><a type="submit" class="button expanded">Log In</a></p>
+        <p class="text-center"><a href="#">Forgot your password?</a></p>   
       </div>
 
-    </div> <!-- /container -->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{% static 'js/jquery.js' %}"></script>
+    </form>
 
-    <!--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>-->
-    <script src="{% static 'js/bootstrap.js' %}"></script>
+	  <button class="close-button" data-close aria-label="Close modal" type="button">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
-  
 
-</body></html>
+	<div class="reveal" id="modal_reg" data-animation-in="slide-in-down"  data-animation-out="slide-out-down" data-reveal style="position: absolute;top:50%;left:50%; margin-left: -300px;"> <!--Se carga en linea para sobreescribir los estilos propios de Foundation -->
+	  <h1>Registro</h1>
+	<form>
+	  <div class="row">
+	    <div class="large-12 columns">
+	      <label>Usuario
+		<input type="text" placeholder="nombre de usuario" />
+	      </label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="large-12 columns">
+	      <label>Correo electrónico
+		<input type="email" placeholder="correo electrónico" />
+	      </label>
+	    </div>
+	  </div>
+	    <div class="row">
+	    <div class="large-12 columns">
+	      <label>Seleccione tipo
+		<select>
+		  <option value="restaurante">Restaurante</option>
+		  <option value="usuario">Usuario</option>
+		</select>
+	      </label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="large-6 columns">
+	      <label>Contraseña
+		<input type="password" placeholder="contraseña" />
+	      </label>
+	    </div>
+	    <div class="large-6 columns">
+	      <label>Repita contraseña
+		<input type="password" placeholder="repita contraseña" />
+	      </label>
+	    </div>
+	   </div>
+
+	<p><a type="submit" class="button expanded">Registrarse</a></p>
+
+	</form>
+	  <button class="close-button" data-close aria-label="Close modal" type="button">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+
+
+</ul>
+</div>
+<div class="top-bar-right">
+<ul class="menu">
+<li><a data-open="modal_entrar">Entrar</a></li>
+<li><a data-open="modal_reg">Registrarse</a></li>
+<!-- <li><a href="#">Five</a></li>
+<li><a href="#">Six</a></li>--> 
+</ul>
+</div>
+</div>
+ 
+<div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit>
+<ul class="orbit-container">
+<button class="orbit-previous" aria-label="previous"><span class="show-for-sr">Previous Slide</span>&#9664;</button>
+<button class="orbit-next" aria-label="next"><span class="show-for-sr">Next Slide</span>&#9654;</button>
+<li class="orbit-slide is-active">
+<img  src="{% static 'img/meson_al_sur_alcala_la_real.jpg' %}">
+</li> 
+<li class="orbit-slide">
+<img  src="{% static 'img/torrepalma.jpg' %}">
+</li>
+<li class="orbit-slide">
+<img  src="{% static 'img/el_barrio.jpg' %}">
+</li>
+<li class="orbit-slide">
+<img  src="{% static 'img/via_priego.jpg' %}">
+</li>
+</ul>
+</div>
+<div class="row column text-center">
+<h2>Productos</h2>
+<hr>
+</div>
+<div class="row small-up-2 large-up-4">
+<div class="column">
+<img class="thumbnail" src="http://placehold.it/300x400">
+<h5>Nulla At Nulla Justo, Eget</h5>
+<p>$400</p>
+<a href="#" class="button expanded">Buy</a>
+</div>
+<div class="column">
+<img class="thumbnail" src="http://placehold.it/300x400">
+<h5>Nulla At Nulla Justo, Eget</h5>
+<p>$400</p>
+<a href="#" class="button expanded">Buy</a>
+</div>
+<div class="column">
+<img class="thumbnail" src="http://placehold.it/300x400">
+<h5>Nulla At Nulla Justo, Eget</h5>
+<p>$400</p>
+<a href="#" class="button expanded">Buy</a>
+</div>
+<div class="column">
+<img class="thumbnail" src="http://placehold.it/300x400">
+<h5>Nulla At Nulla Justo, Eget</h5>
+<p>$400</p>
+<a href="#" class="button expanded">Buy</a>
+</div>
+</div>
+<hr>
+<div class="row column">
+<div class="callout primary">
+<h3>Really big special this week on items.</h3>
+</div>
+</div>
+<hr>
+<div class="row column text-center">
+<h2>Some Other Neat Products</h2>
+<hr>
+</div>
+<div class="row small-up-2 medium-up-3 large-up-6">
+<div class="column">
+<img class="thumbnail" src="http://placehold.it/300x400">
+<h5>Nulla At Nulla Justo, Eget</h5>
+<p>$400</p>
+<a href="#" class="button small expanded hollow">Buy</a>
+</div>
+<div class="column">
+<img class="thumbnail" src="http://placehold.it/300x400">
+<h5>Nulla At Nulla Justo, Eget</h5>
+<p>$400</p>
+<a href="#" class="button small expanded hollow">Buy</a>
+</div>
+<div class="column">
+<img class="thumbnail" src="http://placehold.it/300x400">
+<h5>Nulla At Nulla Justo, Eget</h5>
+<p>$400</p>
+<a href="#" class="button small expanded hollow">Buy</a>
+</div>
+<div class="column">
+<img class="thumbnail" src="http://placehold.it/300x400">
+<h5>Nulla At Nulla Justo, Eget</h5>
+<p>$400</p>
+<a href="#" class="button small expanded hollow">Buy</a>
+</div>
+<div class="column">
+<img class="thumbnail" src="http://placehold.it/300x400">
+<h5>Nulla At Nulla Justo, Eget</h5>
+<p>$400</p>
+<a href="#" class="button small expanded hollow">Buy</a>
+</div>
+<div class="column">
+<img class="thumbnail" src="http://placehold.it/300x400">
+<h5>Nulla At Nulla Justo, Eget</h5>
+<p>$400</p>
+<a href="#" class="button small expanded hollow">Buy</a>
+</div>
+</div>
+<hr>
+<div class="row">
+<div class="medium-4 columns">
+<h4>Top Products</h4>
+<div class="media-object">
+<div class="media-object-section">
+<img class="thumbnail" src="http://placehold.it/100x100">
+</div>
+<div class="media-object-section">
+<h5>Nunc Eu Ullamcorper Orci</h5>
+<p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+</div>
+</div>
+<div class="media-object">
+<div class="media-object-section">
+<img class="thumbnail" src="http://placehold.it/100x100">
+</div>
+<div class="media-object-section">
+<h5>Nunc Eu Ullamcorper Orci</h5>
+<p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+</div>
+</div>
+<div class="media-object">
+<div class="media-object-section">
+<img class="thumbnail" src="http://placehold.it/100x100">
+</div>
+<div class="media-object-section">
+<h5>Nunc Eu Ullamcorper Orci</h5>
+<p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+</div>
+</div>
+</div>
+<div class="medium-4 columns">
+<h4>Top Products</h4>
+<div class="media-object">
+<div class="media-object-section">
+<img class="thumbnail" src="http://placehold.it/100x100">
+</div>
+<div class="media-object-section">
+<h5>Nunc Eu Ullamcorper Orci</h5>
+<p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+</div>
+</div>
+<div class="media-object">
+<div class="media-object-section">
+<img class="thumbnail" src="http://placehold.it/100x100">
+</div>
+<div class="media-object-section">
+<h5>Nunc Eu Ullamcorper Orci</h5>
+<p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+</div>
+</div>
+<div class="media-object">
+<div class="media-object-section">
+<img class="thumbnail" src="http://placehold.it/100x100">
+</div>
+<div class="media-object-section">
+<h5>Nunc Eu Ullamcorper Orci</h5>
+<p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+</div>
+</div>
+</div>
+<div class="medium-4 columns">
+<h4>Top Products</h4>
+<div class="media-object">
+<div class="media-object-section">
+<img class="thumbnail" src="http://placehold.it/100x100">
+</div>
+<div class="media-object-section">
+<h5>Nunc Eu Ullamcorper Orci</h5>
+<p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+</div>
+</div>
+<div class="media-object">
+<div class="media-object-section">
+<img class="thumbnail" src="http://placehold.it/100x100">
+</div>
+<div class="media-object-section">
+<h5>Nunc Eu Ullamcorper Orci</h5>
+<p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+</div>
+</div>
+<div class="media-object">
+<div class="media-object-section">
+<img class="thumbnail" src="http://placehold.it/100x100">
+</div>
+<div class="media-object-section">
+<h5>Nunc Eu Ullamcorper Orci</h5>
+<p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout large secondary">
+<div class="row">
+<div class="large-4 columns" style="float:none; width: 100%;">
+<h5>Gestión de Restaurantes</h5>
+<p>Servicio web creado en <i>Sistemas Software basados en Web</i>, usando <a href="http://foundation.zurb.com/">Foundation</a> sobre <a href="https://www.djangoproject.com/">Django</a> </p>
+<p class="centrado"> <a href="http://jcristobal.github.io/"> JCristobal </a> </p>
+</div>
+</div>
+<!-- 
+<div class="large-3 large-offset-2 columns">
+<ul class="menu vertical">
+<li><a href="#">One</a></li>
+<li><a href="#">Two</a></li>
+<li><a href="#">Three</a></li>
+<li><a href="#">Four</a></li>
+</ul>
+</div>
+<div class="large-3 columns">
+<ul class="menu vertical">
+<li><a href="#">One</a></li>
+<li><a href="#">Two</a></li>
+<li><a href="#">Three</a></li>
+<li><a href="#">Four</a></li>
+</ul>
+</div>
+-->
+</div>
+<script src="{% static 'js/jquery-2.js' %}"></script>
+<script src="{% static 'js/foundation.min.js' %}"></script>
+<script>
+      $(document).foundation(
+
+
+);
+    </script>
+
+</body>
+</html>
