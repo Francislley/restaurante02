@@ -22,84 +22,36 @@
 <!-- <li><a href="#">One</a></li>
 <li><a href="#">Two</a></li> -->
 
+{% block body_block %}
 
+{% endblock %}
 
 	<div class="reveal" id="modal_entrar" data-animation-in="scale-in-up"  data-animation-out="scale-out-down" data-reveal style="position: absolute;top:50%;left:50%; margin-left: -300px;"> <!--Se carga en linea para sobreescribir los estilos propios de Foundation -->
 
-<div class="row">
+<form method="post" action="/accounts/login/">
+{% csrf_token %}
+<input type="text" id="id_username" name="username"> </input>
+<input type="password" id="id_password" name="password"> </input>
+<input type="submit" value="Log in" />
+</form>
 
-  <div class="medium-6 medium-centered large-12 large-centered columns">
-    <form>
-      <div class="row column log-in-form">
-
-        <h4 class="text-center">Log in with you email account</h4>
-        <label>Email
-          <input type="text" placeholder="somebody@example.com">
-        </label>
-        <label>Password
-          <input type="password" placeholder="Password">
-        </label>
-        <input id="show-password" type="checkbox"><label for="show-password">Show password</label>
-        <p><a type="submit" class="button expanded">Log In</a></p>
-        <p class="text-center"><a href="#">Forgot your password?</a></p>   
-      </div>
-
-
-
-    </form>
-
-	  <button class="close-button" data-close aria-label="Close modal" type="button">
-	    <span aria-hidden="true">&times;</span>
-	  </button>
 	</div>
 
 
+
 	<div class="reveal" id="modal_reg" data-animation-in="slide-in-down"  data-animation-out="slide-out-down" data-reveal style="position: absolute;top:50%;left:50%; margin-left: -300px;"> <!--Se carga en linea para sobreescribir los estilos propios de Foundation -->
-	  <h1>Registro</h1>
-	<form>
-	  <div class="row">
-	    <div class="large-12 columns">
-	      <label>Usuario
-		<input type="text" placeholder="nombre de usuario" />
-	      </label>
-	    </div>
-	  </div>
-	  <div class="row">
-	    <div class="large-12 columns">
-	      <label>Correo electrónico
-		<input type="email" placeholder="correo electrónico" />
-	      </label>
-	    </div>
-	  </div>
-	    <div class="row">
-	    <div class="large-12 columns">
-	      <label>Seleccione tipo
-		<select>
-		  <option value="restaurante">Restaurante</option>
-		  <option value="usuario">Usuario</option>
-		</select>
-	      </label>
-	    </div>
-	  </div>
-	  <div class="row">
-	    <div class="large-6 columns">
-	      <label>Contraseña
-		<input type="password" placeholder="contraseña" />
-	      </label>
-	    </div>
-	    <div class="large-6 columns">
-	      <label>Repita contraseña
-		<input type="password" placeholder="repita contraseña" />
-	      </label>
-	    </div>
-	   </div>
 
-	<p><a type="submit" class="button expanded">Registrarse</a></p>
+<h1>Register Here</h1>
+        <form method="post" action="/accounts/register/">
+{% csrf_token %}
+                <p class="required"><label class="required" for="id_username">Username:</label> <input id="id_username" maxlength="30" name="username" type="text"> <span class="helptext">Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.</span></p>
+<p class="required"><label class="required" for="id_email">E-mail:</label> <input id="id_email" name="email" type="email"></p>
+<p class="required"><label class="required" for="id_password1">Password:</label> <input id="id_password1" name="password1" type="password"></p>
+<p class="required"><label class="required" for="id_password2">Password confirmation:</label> <input id="id_password2" name="password2" type="password"> <span class="helptext">Enter the same password as before, for verification.</span></p>
 
-	</form>
-	  <button class="close-button" data-close aria-label="Close modal" type="button">
-	    <span aria-hidden="true">&times;</span>
-	  </button>
+                <input value="Submit" type="submit">
+        </form>
+
 	</div>
 
 
@@ -107,14 +59,27 @@
 </div>
 <div class="top-bar-right">
 <ul class="menu">
-<li><a data-open="modal_entrar">Entrar</a></li>
-<li><a data-open="modal_reg">Registrarse</a></li>
+<!-- <li><a data-open="modal_entrar">Entrar</a></li>-->
+{% if user.is_authenticated %}
+     <li>Hola {{user.username}}</li>
+     <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+{% else %}
+
+   <li><a data-open="modal_entrar" >Entrar</a></li>
+   <li><a data-open="modal_reg" >Registrarse</a></li>
+{% endif %}
+
+
 <!-- <li><a href="#">Five</a></li>
 <li><a href="#">Six</a></li>--> 
 </ul>
 </div>
 </div>
  
+
+
+
+
 <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit>
 <ul class="orbit-container">
 <button class="orbit-previous" aria-label="previous"><span class="show-for-sr">Previous Slide</span>&#9664;</button>
