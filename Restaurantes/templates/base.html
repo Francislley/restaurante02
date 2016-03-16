@@ -23,17 +23,17 @@
 <li><a href="#">Two</a></li> -->
 
 {% block body_block %}
-
+<!-- Bloque de fallo para entrar o registrarse -->
 {% endblock %}
 
 	<div class="reveal" id="modal_entrar" data-animation-in="scale-in-up"  data-animation-out="scale-out-down" data-reveal style="position: absolute;top:50%;left:50%; margin-left: -300px;"> <!--Se carga en linea para sobreescribir los estilos propios de Foundation -->
 
-<form method="post" action="/accounts/login/">
-{% csrf_token %}
-<input type="text" id="id_username" name="username"> </input>
-<input type="password" id="id_password" name="password"> </input>
-<input type="submit" value="Log in" />
-</form>
+		<form method="post" action="/accounts/login/">
+			{% csrf_token %}
+			<input type="text" id="id_username" name="username"> </input>
+			<input type="password" id="id_password" name="password"> </input>
+			<input type="submit" value="Entrar" />
+		</form>
 
 	</div>
 
@@ -41,16 +41,16 @@
 
 	<div class="reveal" id="modal_reg" data-animation-in="slide-in-down"  data-animation-out="slide-out-down" data-reveal style="position: absolute;top:50%;left:50%; margin-left: -300px;"> <!--Se carga en linea para sobreescribir los estilos propios de Foundation -->
 
-<h1>Register Here</h1>
-        <form method="post" action="/accounts/register/">
-{% csrf_token %}
-                <p class="required"><label class="required" for="id_username">Username:</label> <input id="id_username" maxlength="30" name="username" type="text"> <span class="helptext">Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.</span></p>
-<p class="required"><label class="required" for="id_email">E-mail:</label> <input id="id_email" name="email" type="email"></p>
-<p class="required"><label class="required" for="id_password1">Password:</label> <input id="id_password1" name="password1" type="password"></p>
-<p class="required"><label class="required" for="id_password2">Password confirmation:</label> <input id="id_password2" name="password2" type="password"> <span class="helptext">Enter the same password as before, for verification.</span></p>
+		<h1>Registro de usuario</h1>
+		<form method="post" action="/accounts/register/">
+	{% csrf_token %}
+		        <p class="required"><label class="required" for="id_username">Nombre de usuario:</label> <input id="id_username" maxlength="30" name="username" type="text"> <span class="helptext">Obligatorio. 30 caracteres o menos. Letras, digitos y @/./+/-/_ solo.</span></p>
+			<p class="required"><label class="required" for="id_email">E-mail:</label> <input id="id_email" name="email" type="email"></p>
+			<p class="required"><label class="required" for="id_password1">Contraseña:</label> <input id="id_password1" name="password1" type="password"></p>
+			<p class="required"><label class="required" for="id_password2">Confirmación de la contraseña:</label> <input id="id_password2" name="password2" type="password"> <span class="helptext">Introduce la misma contraseña para verificarla.</span></p>
 
-                <input value="Submit" type="submit">
-        </form>
+		        <input value="Registrarse" type="submit">
+		</form>
 
 	</div>
 
@@ -58,21 +58,15 @@
 </ul>
 </div>
 <div class="top-bar-right">
-<ul class="menu">
-<!-- <li><a data-open="modal_entrar">Entrar</a></li>-->
-{% if user.is_authenticated %}
-     <li>Hola {{user.username}}</li>
-     <li><a href="{% url 'auth_logout' %}">Logout</a></li>
-{% else %}
-
-   <li><a data-open="modal_entrar" >Entrar</a></li>
-   <li><a data-open="modal_reg" >Registrarse</a></li>
-{% endif %}
-
-
-<!-- <li><a href="#">Five</a></li>
-<li><a href="#">Six</a></li>--> 
-</ul>
+	<ul class="menu">
+		{% if user.is_authenticated %}
+		     <li>Hola <strong>{{user.username}}</strong></li>
+		     <li><a href="{% url 'auth_logout' %}">Salir</a></li>
+		{% else %}
+		   <li><a data-open="modal_entrar" >Entrar</a></li>
+		   <li><a data-open="modal_reg" >Registrarse</a></li>
+		{% endif %}
+	</ul>
 </div>
 </div>
  
