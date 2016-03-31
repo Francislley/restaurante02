@@ -10,6 +10,10 @@ urlpatterns = [
     url(r'^hola$', views.hola_funcion, name='hola_funcion'),
     # para /app_restaurante/ 
     url(r'^$', views.index, name='index'),
+    # para aniadir voto
+    url(r'^like_category/$', views.like_category, name='like_category'),
+    # para aniadir voto negativo (dislike)
+    url(r'^dislike_category/$', views.dislike_category, name='dislike_category'),
 
 ]
 

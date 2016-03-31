@@ -99,12 +99,48 @@
 
 <div class="row small-up-2 large-up-4">
 
+<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+
+<script>
+$(function(){
+	$('.likes').click(function(){
+	    var catid;
+	    catid = $(this).attr("data-catid");
+	    $.get('/app_restaurante/like_category/', {me_gusta: catid}, function(data){
+		       $('#'+catid).html(data);
+		       $('.likes').hide(); //Solo se vota una vez 
+	    });
+	});
+
+	$('.dislikes').click(function(){
+	    var catid;
+	    catid = $(this).attr("data-catid");
+	    $.get('/app_restaurante/dislike_category/', {no_me_gusta: catid}, function(data){
+		       $('#'+catid+'.muestra_dislike').html(data);
+		       $('.dislikes').hide(); //Solo se vota una vez 
+	    });
+	});
+});
+</script>
+
+
 {% for r in restaurante %}
 	<div class="column">
-		<img class="thumbnail" style ="height: 200px;"src="{{ r.foto }}">
+		<img class="thumbnail" style ="width: 240px; height: 200px;"src="{{ r.foto }}">
 		<h5>{{ r.nombre }}</h5>
 		<p>{{ r.direccion }}</p>
 		<a href="mailto:{{ r.email }}" class="button expanded"> Contacta con ellos</a>
+		<div style="text-align: center;">
+			<div class="likes" data-catid="{{r.id}}"> 
+			<div class="small button success" class="{{r.id}}" style="margin: 0 auto;"> Me gusta</div> </div>
+			 <div id="{{r.id}}"> {{ r.me_gusta }} </div> me gusta 
+
+
+			<div class="dislikes" data-catid="{{r.id}}"> 
+			<div class="small button alert" class="{{r.id}}" style="margin: 0 auto;"> No me gusta</div> </div>
+			<div class="muestra_dislike" id="{{r.id}}"> {{ r.no_me_gusta }} </div> no me gusta
+		</div>
+
 	</div>
 {% endfor %}
 
