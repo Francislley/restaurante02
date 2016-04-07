@@ -108,7 +108,8 @@ $(function(){
 	    catid = $(this).attr("data-catid");
 	    $.get('/app_restaurante/like_category/', {me_gusta: catid}, function(data){
 		       $('#'+catid).html(data);
-		       $('.likes').hide(); //Solo se vota una vez 
+		       $('.likes').addClass('disabled'); //Solo se vota una vez 
+		       alert("Voto positivo recibido \npuede continuar.");
 	    });
 	});
 
@@ -116,10 +117,13 @@ $(function(){
 	    var catid;
 	    catid = $(this).attr("data-catid");
 	    $.get('/app_restaurante/dislike_category/', {no_me_gusta: catid}, function(data){
-		       $('#'+catid+'.muestra_dislike').html(data);
-		       $('.dislikes').hide(); //Solo se vota una vez 
+		       $('#'+catid+'.muestra_dislike').html(data); 
+		       $('.dislikes').addClass('disabled'); //Solo se vota una vez 
+		       alert("Voto negativo recibido \npuede continuar.");
 	    });
 	});
+
+
 });
 </script>
 
@@ -130,15 +134,27 @@ $(function(){
 		<h5>{{ r.nombre }}</h5>
 		<p>{{ r.direccion }}</p>
 		<a href="mailto:{{ r.email }}" class="button expanded"> Contacta con ellos</a>
-		<div style="text-align: center;">
+		<div class="calidad">
 			<div class="likes" data-catid="{{r.id}}"> 
-			<div class="small button success" class="{{r.id}}" style="margin: 0 auto;"> Me gusta</div> </div>
-			 <div id="{{r.id}}"> {{ r.me_gusta }} </div> me gusta 
+				<div class="small button success" class="{{r.id}}" style="margin: 0 auto;"> 
+					<div id="{{r.id}}"> 
+						{{r.me_gusta}} 
+					</div> 
+				me gusta
+				</div> 
+			</div>
+
 
 
 			<div class="dislikes" data-catid="{{r.id}}"> 
-			<div class="small button alert" class="{{r.id}}" style="margin: 0 auto;"> No me gusta</div> </div>
-			<div class="muestra_dislike" id="{{r.id}}"> {{ r.no_me_gusta }} </div> no me gusta
+				<div class="small button alert" class="{{r.id}}" style="margin: 0 auto;"> 
+					<div class="muestra_dislike" id="{{r.id}}"> 
+						{{r.no_me_gusta}} 
+					</div>
+				no me gusta
+				</div> 
+			</div>
+			 
 		</div>
 
 	</div>
