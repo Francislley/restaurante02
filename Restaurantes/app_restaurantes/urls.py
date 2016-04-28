@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^like_category/$', views.like_category, name='like_category'),
     # para aniadir voto negativo (dislike)
     url(r'^dislike_category/$', views.dislike_category, name='dislike_category'),
+    # para recoger el formulario de las tapas
+    url(r'^at/$', views.add_tapa, name ='add_tapa'),
 
 ]
 

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block form_tapas %}
+
+<p> Añadir tapas </p>
+
+<form method="post" action="{% url 'add_tapa'  %}">
+	{% csrf_token %}
+	{{ form.as_p}}
+	<input type="submit" value="Aniadir" />
+</form>
+
+
+{% endblock %}
