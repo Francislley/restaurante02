@@ -165,9 +165,13 @@ $(function(){
 
 <hr>
 <div class="row column">
-<div class="callout primary">
-<h3 style="text-align: center;"> Platos típicos</h3>
-</div>
+	<div class="callout primary">
+		<h3 style="text-align: center;"> Peticiones REST</h3>
+	</div>
+
+	<p> <a href="http://127.0.0.1:8000/app_restaurante/api/"> POST de elementos 'restaurantes' </a> </p>
+	<p> <a href="http://127.0.0.1:8000/app_restaurante/api/Torrepalma/"> POST de elemento 'restaurante Torrepalma' </a> </p>
+
 </div>
 <hr>
 
@@ -199,16 +203,54 @@ $(function(){
 {% endblock %}
 
 
-<div class="callout large secondary">
-<div class="row">
-<div class="large-4 columns" style="float:none; width: 100%;">
-<h5>Gestión de Restaurantes</h5>
-<p>Servicio web creado en <i>Sistemas Software basados en Web</i>, usando <a href="http://foundation.zurb.com/">Foundation</a> sobre <a href="https://www.djangoproject.com/">Django</a> </p>
-<p class="centrado"> <a href="http://jcristobal.github.io/"> JCristobal </a> </p>
-</div>
-</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script>
+
+	var myApp = angular.module('myApp',[]);
+
+	myApp.controller('GreetingController', ['$scope', function($scope) {
+	  $scope.greeting = 'Hola!';
+	}]);
+
+	myApp.controller('DoubleController', ['$scope', function($scope) {
+	  $scope.double = function(value) { return value * 2; };
+	}]);
+
+</script>
+
+{% verbatim %}
+
+<div class="row column" ng-app="myApp">
+	<div class="callout primary">
+		<h3 style="text-align: center;"> Prueba para angularJS</h3>
+	</div>
+
+	<div ng-controller="GreetingController">
+		{{ greeting }}
+	</div>
+
+	<div ng-controller="DoubleController">
+		Two times <input ng-model="num" value="0"> equals {{ double(num) }}
+	</div>
+
 
 </div>
+{% endverbatim %}
+
+<div class="callout large secondary">
+<div class="row">
+	<div class="large-4 columns" style="float:none; width: 100%;">
+		<h5>Gestión de Restaurantes</h5>
+		<p>Servicio web creado en <i>Sistemas Software basados en Web</i>, usando <a href="http://foundation.zurb.com/">Foundation</a> sobre <a href="https://www.djangoproject.com/">Django</a> </p>
+		<p class="centrado"> <a href="http://jcristobal.github.io/"> JCristobal </a> </p>
+		</div>
+	</div>
+
+</div>
+
+
+
+
 
 <script src="{% static 'js/jquery-2.js' %}"></script>
 <script src="{% static 'js/foundation.min.js' %}"></script>

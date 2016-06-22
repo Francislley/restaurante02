@@ -1,7 +1,37 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from app_restaurantes.models import Restaurante
+from app_restaurantes.models import Restaurante, Tapa
 from django.contrib.auth.decorators import login_required
+from django import forms
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from app_restaurantes.models import Restaurante
+from app_restaurantes.serializers import RestauranteSerializer
+
+
+
+class TapasForm(forms.Form):
+    nombre = forms.CharField(max_length=128, label='Aniadir tapa')
+    foto = forms.CharField(max_length=128, label='Aniadir imagen')
+    precio = forms.IntegerField(label='Precio de la tapa')
+    restaurante = forms.CharField(label='Resturante que pertenece')
+
+def add_tapa(request):
+    context={}
+    form=TapasForm()
+
+
+    context={
+
+        'form': form
+    }
+    if request.method == 'POST':
+        form = TapasForm(request.POST)
+        context['form']=form
+
+    return render(request,'app_restaurantes/add_tapa.html',context)
+
+
 
 
 def hola_funcion (request):
@@ -10,7 +40,8 @@ def hola_funcion (request):
 
 def index (request):
 	lista = Restaurante.objects.all()
-	context= {'mensaje': 'restaurantes!', 'restaurante': lista[:4]} #paso los 4 primeros solo
+	lista_tapas = Tapa.objects.all()
+	context= {'mensaje': 'restaurantes!', 'restaurante': lista[:4], 'tapas': lista_tapas} #paso los 4 primeros solo
 	return render (request, 'base.html', context)
 
 
@@ -48,4 +79,25 @@ def dislike_category(request):
 
 
 	return HttpResponse(dislikes)
+
+
+@api_view(['GET'])
+def post_restaurante(request):
+	if request.method == 'GET':
+		restaurante = Restaurante.objects.all()
+		serializer = RestauranteSerializer(restaurante, many=True)
+		return Response(serializer.data)
+
+
+@api_view(['GET'])
+def post_element_restaurante(request, nombre):
+	try:
+		restaurante = Restaurante.objects.get(nombre=nombre)
+	except Restaurante.DoesNotExist:
+		return HttpResponse(status=404)
+
+	if request.method == 'GET':
+		serializer = RestauranteSerializer(restaurante)
+		return Response(serializer.data)
+
 

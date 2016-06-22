@@ -1,6 +1,7 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from . import views
+from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -16,6 +17,10 @@ urlpatterns = [
     url(r'^dislike_category/$', views.dislike_category, name='dislike_category'),
     # para recoger el formulario de las tapas
     url(r'^at/$', views.add_tapa, name ='add_tapa'),
+    # REST
+    url(r'^api/$', views.post_restaurante, name='post_restaurante'),
+    url(r'^api/(?P<nombre>[\w\- ]+)/$', views.post_element_restaurante,name='post_element_restaurante')
 
 ]
+
 
