@@ -12,6 +12,8 @@
 	<link href="{% static 'css/foundation.css' %}" rel="stylesheet"> 
 	<link href="{% static 'css/restaurantes.css' %}" rel="stylesheet"> 
 
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+
 </head>
 <body>
 
@@ -163,23 +165,53 @@ $(function(){
 </div>
 
 
+<script>
+
+	var myApp = angular.module('myApp',[]);
+
+	myApp.controller('ListController', function($scope) {
+	    $scope.names = ["Torrepalma", "Meson El Barrio", "Via Priego", "Cafe El Vecino", "Cafe-Bar Europa"];
+	});
+
+</script>
+
+
+{% verbatim %}
 <hr>
-<div class="row column">
+<div class="row column" ng-app="myApp">
 	<div class="callout primary">
-		<h3 style="text-align: center;"> Peticiones REST</h3>
+		<h4 style="text-align: center;" title="Uso de servicio REST apoyado de angularJS"> Peticiones REST</h4>
 	</div>
 
-	<p> <a href="http://127.0.0.1:8000/app_restaurante/api/"> POST de elementos 'restaurantes' </a> </p>
-	<p> <a href="http://127.0.0.1:8000/app_restaurante/api/Torrepalma/"> POST de elemento 'restaurante Torrepalma' </a> </p>
+	<p> <a href="/app_restaurante/api/"> REST de elementos 'restaurantes' </a> </p>
+	
+	<div  ng-controller="ListController" > 
+
+		<div style="display: inline-flex;">
+			<p> Escoge de manera dinámica el restaurante para hacer la petición: </p>
+
+			<select ng-model="seleccionado" style="width: 350px; margin: -5px 10px;">
+				<option ng-repeat="x in names" value="{{x}}">{{x}}</option>
+			</select>
+		</div>
+
+		<p style="width: 750px;"> <a href="/app_restaurante/api/{{seleccionado}}/"> REST de elemento 'restaurante {{seleccionado}}' </a> </p>
+
+	</div>
+
 
 </div>
 <hr>
+{% endverbatim %}
+
+<div class="row" style="margin-bottom: 20px;" id="apartado_tapas">
 
 
-<div class="row">
+<div class="callout primary">
+	<h4 style="text-align: center;" title="Apartado de 'tapas' usando una BD no relacional (NoSQL: mongodb), pero desactivada ya que no se integra con la actual (relacional) de 'restaurantes'"> Tapas *</h4>
+</div>
 
-
-<div class="medium-4 columns">
+<div class="medium-4 columns" >
 
 {% for t in tapas %}
 	<div class="media-object">
@@ -194,6 +226,7 @@ $(function(){
 
 </div>
 
+<a href="/app_restaurante/at/#apartado_tapas"> Mostrar el formulario para añadir 'Tapa' </a>
 
 
 </div>
@@ -203,39 +236,6 @@ $(function(){
 {% endblock %}
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-<script>
-
-	var myApp = angular.module('myApp',[]);
-
-	myApp.controller('GreetingController', ['$scope', function($scope) {
-	  $scope.greeting = 'Hola!';
-	}]);
-
-	myApp.controller('DoubleController', ['$scope', function($scope) {
-	  $scope.double = function(value) { return value * 2; };
-	}]);
-
-</script>
-
-{% verbatim %}
-
-<div class="row column" ng-app="myApp">
-	<div class="callout primary">
-		<h3 style="text-align: center;"> Prueba para angularJS</h3>
-	</div>
-
-	<div ng-controller="GreetingController">
-		{{ greeting }}
-	</div>
-
-	<div ng-controller="DoubleController">
-		Two times <input ng-model="num" value="0"> equals {{ double(num) }}
-	</div>
-
-
-</div>
-{% endverbatim %}
 
 <div class="callout large secondary">
 <div class="row">

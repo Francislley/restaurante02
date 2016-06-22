@@ -81,16 +81,27 @@ def dislike_category(request):
 	return HttpResponse(dislikes)
 
 
-@api_view(['GET'])
-def post_restaurante(request):
+@api_view(['GET','POST'])
+def rest_restaurante(request):
 	if request.method == 'GET':
 		restaurante = Restaurante.objects.all()
 		serializer = RestauranteSerializer(restaurante, many=True)
 		return Response(serializer.data)
 
+	if request.method == 'POST':
+		serializer = RestauranteSerializer(data=request.data)
+       
 
-@api_view(['GET'])
-def post_element_restaurante(request, nombre):
+		if serializer.is_valid():
+			serializer.save()
+  			print('vale')
+			return JsonResponse(serializer.data, status=201)
+   
+	return JsonResponse(serializer.errors, status=400)
+
+
+@api_view(['GET','PUT','DELETE'])
+def rest_element_restaurante(request, nombre):
 	try:
 		restaurante = Restaurante.objects.get(nombre=nombre)
 	except Restaurante.DoesNotExist:
@@ -99,5 +110,20 @@ def post_element_restaurante(request, nombre):
 	if request.method == 'GET':
 		serializer = RestauranteSerializer(restaurante)
 		return Response(serializer.data)
+
+	if request.method == 'DELETE':
+		serializer = RestauranteSerializer(restaurante)
+		return Response(status=status.HTTP_204_NO_CONTENT)
+
+	if request.method == 'PUT':
+		nombreR = Restaurante.objects.get(nombre=nombre)
+		#direccionR = Restaurante.objects.get(direccion=direccion)
+		#fotoR = Restaurante.objects.get(foto=foto)
+		#me_gustaR = Restaurante.objects.get(me_gusta=me_gusta)
+		nombreR.save()
+		#direccionR.save()
+		#fotoR.save()
+		#me_gustaR
+		return Response(status=status.HTTP_201_OK)
 
 
