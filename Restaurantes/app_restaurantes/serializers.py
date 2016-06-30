@@ -4,6 +4,6 @@ from app_restaurantes.models import Restaurante
 class RestauranteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurante
-        fields = ('id', 'nombre', 'direccion', 'foto', 'me_gusta')
+        fields = ('id', 'nombre', 'direccion', 'foto', 'me_gusta', 'no_me_gusta')
 
 

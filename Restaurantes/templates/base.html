@@ -94,7 +94,7 @@
 	</ul>
 </div>
 
-<div class="row column text-center">
+<div class="row column text-center" title="No se mostrararán hasta que el usuario no se registre">
 	<h2>Algunos establecimientos</h2>
 	<hr>
 </div>
@@ -170,7 +170,7 @@ $(function(){
 	var myApp = angular.module('myApp',[]);
 
 	myApp.controller('ListController', function($scope) {
-	    $scope.names = ["Torrepalma", "Meson El Barrio", "Via Priego", "Cafe El Vecino", "Cafe-Bar Europa"];
+	    $scope.names = ["1", "2", "3", "4", "5"];
 	});
 
 </script>
@@ -183,7 +183,9 @@ $(function(){
 		<h4 style="text-align: center;" title="Uso de servicio REST apoyado de angularJS"> Peticiones REST</h4>
 	</div>
 
-	<p> <a href="/app_restaurante/api/"> REST de elementos 'restaurantes' </a> </p>
+	<p> <a href="/app_restaurante/api/"> Listado de elementos 'restaurantes' (Django REST framework)</a> </p>
+
+	<p> <a href="/app_restaurante/api/"> Listado de elementos 'restaurantes' (Django REST framework APIview) </a> </p>
 	
 	<div  ng-controller="ListController" > 
 
@@ -195,10 +197,15 @@ $(function(){
 			</select>
 		</div>
 
-		<p style="width: 750px;"> <a href="/app_restaurante/api/{{seleccionado}}/"> REST de elemento 'restaurante {{seleccionado}}' </a> </p>
+		<p style="width: 750px;"> <a href="/app_restaurante/api/{{seleccionado}}/"> GET de elemento 'restaurante {{seleccionado}}' </a> </p>
+
+		<p style="width: 750px;"> <a href="/app_restaurante/restauranteGet/{{seleccionado}}/"> GET de elemento 'restaurante {{seleccionado}}' (Django REST framework APIview) </a> </p>
+
+		<p style="width: 750px;"> <a href="/app_restaurante/restauranteUpdate/{{seleccionado}}/"> UPDATE de elemento 'restaurante {{seleccionado}}' (Django REST framework APIview) </a> </p>
 
 	</div>
 
+	<p> <a href="/app_restaurante/api-propia/"> API REST propia </a> </p>
 
 </div>
 <hr>

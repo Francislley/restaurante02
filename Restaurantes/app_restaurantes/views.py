@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from app_restaurantes.models import Restaurante, Tapa
 from django.contrib.auth.decorators import login_required
 from django import forms
@@ -7,6 +7,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from app_restaurantes.models import Restaurante
 from app_restaurantes.serializers import RestauranteSerializer
+
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+
+
 
 
 
@@ -80,7 +85,7 @@ def dislike_category(request):
 
 	return HttpResponse(dislikes)
 
-
+@csrf_exempt
 @api_view(['GET','POST'])
 def rest_restaurante(request):
 	if request.method == 'GET':
@@ -90,20 +95,20 @@ def rest_restaurante(request):
 
 	if request.method == 'POST':
 		serializer = RestauranteSerializer(data=request.data)
-       
 
 		if serializer.is_valid():
 			serializer.save()
   			print('vale')
 			return JsonResponse(serializer.data, status=201)
-   
+
+		
 	return JsonResponse(serializer.errors, status=400)
 
 
 @api_view(['GET','PUT','DELETE'])
-def rest_element_restaurante(request, nombre):
+def rest_element_restaurante(request, pk):
 	try:
-		restaurante = Restaurante.objects.get(nombre=nombre)
+		restaurante = Restaurante.objects.get(id=pk)
 	except Restaurante.DoesNotExist:
 		return HttpResponse(status=404)
 
@@ -112,18 +117,41 @@ def rest_element_restaurante(request, nombre):
 		return Response(serializer.data)
 
 	if request.method == 'DELETE':
-		serializer = RestauranteSerializer(restaurante)
+		#serializer = RestauranteSerializer(restaurante)
+		restaurante.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
 	if request.method == 'PUT':
-		nombreR = Restaurante.objects.get(nombre=nombre)
-		#direccionR = Restaurante.objects.get(direccion=direccion)
-		#fotoR = Restaurante.objects.get(foto=foto)
-		#me_gustaR = Restaurante.objects.get(me_gusta=me_gusta)
-		nombreR.save()
-		#direccionR.save()
-		#fotoR.save()
-		#me_gustaR
-		return Response(status=status.HTTP_201_OK)
+
+		nuevoRestaurante = Restaurante.objects.get(nombre=nombre)
+		nuevoRestaurante.direccion = direccion
+		nuevoRestaurante.foto = foto
+		nuevoRestaurante.me_gusta = me_gusta
+		nuevoRestaurante.no_me_gusta = no_me_gusta
+
+		nuevoRestaurante.save()
+
+
+	return Response(status=status.HTTP_201_OK)
+
+
+
+
+from rest_framework import generics
+
+
+class RestauranteList(generics.ListCreateAPIView):
+	queryset = Restaurante.objects.all()
+	serializer_class = RestauranteSerializer
+
+
+class RestauranteGet(generics.RetrieveAPIView):
+	queryset = Restaurante.objects.all()
+	serializer_class = RestauranteSerializer
+
+class RestauranteUpdate(generics.UpdateAPIView):
+	queryset = Restaurante.objects.all()
+	serializer_class = RestauranteSerializer
+
 
 

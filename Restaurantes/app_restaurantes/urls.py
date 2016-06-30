@@ -2,6 +2,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from . import views
 from django.views.generic import TemplateView
+from views import RestauranteList, RestauranteGet, RestauranteUpdate
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -17,10 +18,15 @@ urlpatterns = [
     url(r'^dislike_category/$', views.dislike_category, name='dislike_category'),
     # para recoger el formulario de las tapas
     url(r'^at/$', views.add_tapa, name ='add_tapa'),
-    # REST
-    url(r'^api/$', views.post_restaurante, name='post_restaurante'),
-    url(r'^api/(?P<nombre>[\w\- ]+)/$', views.post_element_restaurante,name='post_element_restaurante')
-
+    # Django REST
+    url(r'^api/$', views.rest_restaurante, name='rest_restaurante'),
+    url(r'^api/(?P<pk>[\d]+)/$', views.rest_element_restaurante,name='rest_element_restaurante'),
+    # API REST propia 
+    url(r'^api-propia/$', TemplateView.as_view(template_name='api-propia.html')), 
+    # Django REST framework APIview
+    url(r'^restauranteList/', RestauranteList.as_view(), name='restaurante-list'),
+    url(r'^restauranteGet/(?P<pk>[\d])/$', RestauranteGet.as_view(), name='restaurante-get'),
+    url(r'^restauranteUpdate/(?P<pk>[\d])/$', RestauranteUpdate.as_view(), name='restaurante-update')
 ]
 
 
